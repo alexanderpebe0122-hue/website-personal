@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DHEANDRA KAYLA PUTRI</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg-start:#fff0f6;
+    --bg-end:#e8f4ff;
+    --card:#ffffff;
+    --accent:#ff6b8f;
+    --accent2:#8fc8ff;
+    --text:#222;
+  }
+  :root.dark{
+    --bg-start:#0b0b15;
+    --bg-end:#1b1530;
+    --card:#171827;
+    --accent:#ff8fb0;
+    --accent2:#6eaef7;
+    --text:#f6f6f9;
+  }
+
+  html,body{
+    height:100%;
+    margin:0;
+    font-family:'Inter',system-ui,Arial;
+    color:var(--text);
+    background:linear-gradient(180deg,var(--bg-start),var(--bg-end));
+  }
+  .wrap{max-width:980px;margin:18px auto;padding:14px;display:flex;flex-direction:column;gap:14px}
+  .card{background:var(--card);border-radius:12px;box-shadow:0 12px 30px rgba(18,18,18,0.06);overflow:hidden}
+
+  /* HEADER / CAROUSEL */
+  .header{
+    position:relative;height: 700px;overflow:hidden;
+  }
+  .carousel-track{
+    width:100%;height:100%;position:relative;
+  }
+  .carousel-track img{
+    width:100%;height:100%;
+    object-fit:cover;
+    position:absolute;top:0;left:0;
+    opacity:0;transition:opacity 1s;
+  }
+  .carousel-track img.active{opacity:1;}
+
+  .hdr-text{
+    position:absolute;left:18px;bottom:18px;
+    color:white;text-shadow:0 8px 22px rgba(0,0,0,0.35)
+  }
+  .hdr-title{font-family:'Great Vibes',cursive;font-size:40px;margin:0;}
+  .hdr-sub{font-size:14px;margin:0;}
+
+  /* content/game */
+  .content{padding:18px;display:flex;flex-direction:column;gap:12px}
+  .intro{font-size:15px;line-height:1.55}
+
+  .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .btn{background:linear-gradient(90deg,var(--accent),var(--accent2));color:white;border:none;padding:10px 14px;border-radius:999px;cursor:pointer;font-weight:700;box-shadow:0 10px 24px rgba(255,77,109,0.12)}
+  .btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(255,77,109,0.18);box-shadow:none}
+
+  .meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .board{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
+  .cell{background:#fff;border-radius:10px;padding:18px;font-size:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .16s,box-shadow .18s;user-select:none}
+  .msg{min-height:52px;font-size:16px;font-weight:700;color:var(--accent);display:flex;align-items:center;justify-content:center}
+
+  .final{padding:16px;background:linear-gradient(90deg,#fff6fb,#e6f6ff);border-radius:10px;text-align:center;font-weight:700;margin-top:8px}
+
+  @media(max-width:560px){
+    .header{height:260px}
+    .hdr-title{font-size:32px}
+    .cell{font-size:28px;padding:14px}
+  }
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <!-- HEADER CAROUSEL -->
+  <div class="card header">
+    <div class="carousel-track">
+      <img src="dheandra.jpg" class="active">
+      <img src="gemes.jpg">
+      <img src="sama gemes juga.jpg">
+      <img src="gemes kecil.jpg">
+      <img src="ini cakep banget.jpg">
+    </div>
+
+    <div class="hdr-text">
+      <h2 class="hdr-title">Untukmu, DHEANDRA KAYLA PUTRI</h2>
+      <div class="hdr-sub">Semoga hari ini lebih bahagia dari kemarin ✨</div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="card content">
+    <div class="intro">
+      Hai <strong>DHEANDRA KAYLA PUTRI</strong> — kamu itu luar biasa kuat dan penuh cahaya.  
+      Aku buat ini supaya kamu tersenyum dan tetap semangat ❤️✨
+    </div>
+
+    <div class="controls">
+      <button id="playBtn" class="btn">▶ Musik</button>
+      <button id="pauseBtn" class="btn ghost" style="display:none">⏸ Pause</button>
+      <button id="shareBtn" class="btn">Share WA</button>
+      <button id="helpBtn" class="btn ghost">Cara Main</button>
+
+      <button id="darkToggle" class="btn ghost" style="margin-left:auto">🌙</button>
+    </div>
+
+    <!-- GAME -->
+    <div>
+      <div class="meta">
+        <div>Game: Temukan Hati 💘</div>
+        <div style="margin-left:auto">Level: <strong id="level">1</strong> / <strong id="maxLevel">5</strong></div>
+      </div>
+
+      <div id="board" class="board"></div>
+      <div id="msg" class="msg"></div>
+      <div style="text-align:center;margin-top:12px">
+        <button id="resetBtn" class="btn ghost">Ulang Level</button>
+      </div>
+    </div>
+  </div>
+  <div id="final" class="card final" style="display:none">
+    <div id="finalText" aria-live="polite" style="white-space:pre-wrap; font-weight:700; font-size">
+     ❤️ Selesai! Kamu hebat sekali, DHEANDRA ✨
+    </div>
+
+  <div style="text-align:center;font-size:12px;color:gray;margin-top:6px">
+    Music: Acoustic Breeze — Bensound
+  </div>
+</div>
+
+<!-- AUDIO -->
+<audio id="bgAudio" loop preload="auto">
+  <source src="musik romantis.mp3" type="audio/mpeg">
+</audio>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.7.0/dist/confetti.browser.min.js"></script>
+
+<script>
+/* ===== CAROUSEL ===== */
+const slides = document.querySelectorAll('.carousel-track img');
+let cur = 0;
+setInterval(()=>{
+  slides[cur].classList.remove('active');
+  cur = (cur + 1) % slides.length;
+  slides[cur].classList.add('active');
+}, 3000);
+
+/* ===== GAME ===== */
+const MAX_LEVEL = 5;
+let level = 1, specialIndex;
+const messages = [
+  "Aku percaya kamu bisa melalui semua hal ❤️✨",
+  "Kamu semakin dekat dengan mimpi! ✨",
+  "Istirahat juga bagian dari kuat ❤️",
+  "Bangga sama kamu ❤️✨",
+  "Horeee! Kamu berhasil, hebat sekali ❤️"
+];
+
+const board = document.getElementById('board');
+const msg = document.getElementById('msg');
+const lvlLabel = document.getElementById('level');
+document.getElementById('maxLevel').textContent = MAX_LEVEL;
+
+function initBoard(){
+  board.innerHTML=''; msg.textContent='';
+  specialIndex = Math.floor(Math.random()*9)+1;
+  for(let i=1;i<=9;i++){
+    let c = document.createElement('div');
+    c.className='cell'; c.textContent='❤️';
+    c.onclick=()=>check(i,c);
+    board.appendChild(c);
+  }
+}
+function check(i,c){
+  if(i===specialIndex){
+    msg.textContent=messages[level-1];
+    confetti({particleCount:180, spread:160});
+    if(level<MAX_LEVEL){
+      level++; lvlLabel.textContent=level;
+      setTimeout(()=>initBoard(),1000);
+    }else showFinal();
+  }else{
+    msg.textContent="Belum, coba lagi ya ❤️";
+  }
+}
+function showFinal(){
+  document.getElementById('final').style.display='block';
+  confetti({particleCount:400, spread:200});
+}
+
+/* ===== MUSIC CONTROL ===== */
+const audio = document.getElementById('bgAudio');
+const playBtn = document.getElementById('playBtn');
+const pauseBtn = document.getElementById('pauseBtn');
+let audioStarted = false;
+playBtn.onclick=()=>{audio.play();playBtn.style.display='none';pauseBtn.style.display='inline-block';}
+pauseBtn.onclick=()=>{audio.pause();pauseBtn.style.display='none';playBtn.style.display='inline-block';}
+
+document.addEventListener('click', function first(){
+  if(!audioStarted){
+    audio.play().catch(()=>{});
+    playBtn.style.display='none'; pauseBtn.style.display='inline-block';
+    audioStarted = true;
+    document.removeEventListener('click', first);
+  }
+});
+
+/* ===== OTHERS ===== */
+document.getElementById('resetBtn').onclick=()=>initBoard();
+document.getElementById('helpBtn').onclick=()=>alert("Sentuh hati yang benar untuk dapat pesan semangat ✨");
+document.getElementById('shareBtn').onclick=()=>window.open("https://wa.me/?text="+encodeURIComponent("Aku buat sesuatu spesial, cek ya ❤️✨"),"_blank");
+
+document.getElementById('darkToggle').onclick=()=>document.documentElement.classList.toggle('dark');
+
+initBoard();
+</script>
+</body>
+</html>
